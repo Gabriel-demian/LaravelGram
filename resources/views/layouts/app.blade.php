@@ -3,23 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        @stack('styles')
-
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>LaravelGram - @yield('titulo')</title>
-        <script src="{{ asset('js/app.js') }} defer"></script>
-        <link href="css/app.css" rel="stylesheet">
         @vite('resources/css/app.css')
+        @stack('styles')
+        <title>LaravelGram - @yield('titulo')</title>
         @vite('resources/js/app.js')
     </head>
     <body class="bg-gray-100">
-
         <header class="p-5 border-b bg-white shadow">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-3xl font-black">
+                <a href="" class="text-3xl font-black">
                     LaravelGram
-                </h1>
+                </a>
 
                 @auth
                     <nav class="flex gap-2 items-center">
@@ -72,7 +66,7 @@
         </header>
 
         <main class="container mx-auto mt-10">
-            <h2 class="font-black text-center text-3xl mb-10">
+            <h2 class="font-black text-center  text-3xl mb-10">
                 @yield('titulo')
             </h2>
             @yield('contenido')
@@ -82,6 +76,5 @@
         <footer class="mt-10 text-center p-5 text-gray-500 font-bold uppercase">
             LaravelGram - Todos los derechos reservados {{ date('Y') }}
         </footer>
-
     </body>
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -15,7 +16,8 @@ class PostController extends Controller
     {
         //el middleware filtra solicitudes, 
         //el middleware auth se encarga es de ver que el usuario se encuentre con una sesion activa
-        $this->middleware('auth');
+        //los usuarios tienen que estar autentificados para poder acceder a las funciones de Post excepto para ver los posts.
+        $this->middleware('auth')->except(['show', 'index']);
     }
 
     public function index(User $user){
@@ -68,7 +70,25 @@ class PostController extends Controller
         return redirect()->route('post.index', auth()->user()->username);
     }
 
-    public function show(){
-        return view('');
+    //le pasamos la variable en la ruta hacia el metodo, 
+    //y al estar asociado con el modelo Post lo pasa en automatico y lo pasa a la vista
+    public function show(User $user, Post $post){
+        return view('posts.show', [
+            'post' => $post,
+            'user' => $user
+        ]);
+    }
+
+    public function destroy(Post $post){
+        $this->authorize('delete', $post);
+        $post->delete();
+
+        //Eliminar la imagen
+        $imagen_path = public_path('uploads/' . $post->imagen);
+        if(File::exists($imagen_path)){
+            unlink($imagen_path);
+        }
+
+        return redirect()->route('post.index', auth()->user()->username);
     }
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenido')
-    <div class="md:flex md:justify-center md:gap-10 md:items-center">
+    <div class="md:flex md:justify-center md:gap-10 md:items-center ">
         <div class="md:w-6/12 p-5">
             <img src="{{ asset('img/login.jpg') }}" alt="Imagen de login de usuario">
         </div>
