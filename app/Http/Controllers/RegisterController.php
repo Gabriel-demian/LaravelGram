@@ -32,7 +32,8 @@ class RegisterController extends Controller
             'name' => $request->name,
             'username' => $request->get('username'),    
             'email' => $request->email,
-            'password' => Hash::make($request->password) 
+            'password' => Hash::make($request->password),
+            'categoria' => 'usuario' 
        ]);
 
 
@@ -47,7 +48,7 @@ class RegisterController extends Controller
 
 
        //redireccionamos al usuario
-       return redirect()->route('post.index');
+       return redirect()->route('post.index', auth()->user()->username);
 
 
     }

@@ -27,7 +27,7 @@
             @auth
                 <!-- TODO agregar un campo de privilegios y consultarlo, si soy un Administrador puedo borrar publicaciones que no sean mías
                 agregandole un ||  auth()->user()->categoria === 'administrador'-->
-                @if ($post->user_id === auth()->user()->id)
+                @if ($post->user_id === auth()->user()->id || auth()->user()->categoria === 'administrador')
                     <form action="{{ route('posts.destroy', $post) }}" method="POST">
                         @method('DELETE')
                         @csrf

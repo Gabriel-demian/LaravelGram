@@ -20,7 +20,7 @@ class PostPolicy
     public function delete(User $user, Post $post)
     {
         //si el usuario que quiere borrar la foto es el mismo que la creó 
-        return $user->id === $post->user_id;
+        return $user->id === $post->user_id  || auth()->user()->categoria === 'administrador';
     }
 
 }
